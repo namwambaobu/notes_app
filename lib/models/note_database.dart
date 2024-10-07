@@ -35,7 +35,13 @@ class NoteDatabase {
     if (existingNote != null) {
       existingNote.text = newText;
       await isar.writeTxn(() => isar.notes.put(existingNote));
+      await fetchNotes();
     }
   }
+
   //DELETE - notes form db
+  Future<void> deleteNote(int id) async {
+    await isar.writeTxn(() => isar.notes.delete(id));
+    await fetchNotes();
+  }
 }
